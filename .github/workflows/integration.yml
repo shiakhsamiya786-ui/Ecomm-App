@@ -3,9 +3,10 @@ name: Continuous Integration
 on:
   # if any push on main branch
   push:
-    branches:
+    branches:{"main"}
   # if any pull request on main branch
   pull_request:
+branches:["main"]
 
 
 jobs:
@@ -15,7 +16,7 @@ jobs:
     strategy:
       matrix:
         # see what node versions are supported by our application
-        node-version: []   # node version we are testing ( must be >20 )
+        node-version: [20.x,22.x,24.x]   # node version we are testing ( must be >20 )
 
     defaults:
       run:
@@ -38,11 +39,11 @@ jobs:
 
       # install dependencies
       - name : Install dependencies
-        run :
+        run :npm install
 
       # generate prisma client
       - name : Prisma Client
-        run :
+        run :npx prisma generate
 
       #  check the build
       - name : Build Check
